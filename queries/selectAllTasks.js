@@ -1,10 +1,10 @@
-module.exports = function selectAllTasks(user_id) {
-   return `
+const selectAllTasks = `
          SELECT 
              *
          FROM
              tasks
          WHERE
-             tasks.user_id = '${user_id}'
+             tasks.user_id = ?
      `;
-};
+
+module.exports = selectAllTasks;

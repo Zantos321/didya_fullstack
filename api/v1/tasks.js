@@ -8,9 +8,9 @@ const selectAllTasks = require("../../queries/selectAllTasks");
 // @desc        Get all taks for a user
 // @access      Public
 router.get("/", (req, res) => {
-   console.log(req, res);
-   const userId = req.query.userId;
-   db.query(selectAllTasks(userId))
+   console.log(req.query);
+   const { userId } = req.query;
+   db.query(selectAllTasks, [userId])
       .then((dbRes) => {
          res.json(dbRes);
       })
