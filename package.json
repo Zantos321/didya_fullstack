@@ -1,11 +1,25 @@
 {
-  "name": "didya-fullstack",
-  "version": "1.0.0",
-  "main": "server.js",
-  "license": "MIT",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mysql": "^2.18.1"
-  }
+   "name": "didya-fullstack",
+   "version": "1.0.0",
+   "main": "server.js",
+   "license": "MIT",
+   "dependencies": {
+      "dotenv": "^8.2.0",
+      "express": "^4.17.1",
+      "mysql": "^2.18.1"
+   },
+   "scripts": {
+      "start": "nodemon server.js"
+   },
+   "devDependencies": {},
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Zantos321/didya_fullstack.git"
+   },
+   "author": "",
+   "bugs": {
+      "url": "https://github.com/Zantos321/didya_fullstack/issues"
+   },
+   "homepage": "https://github.com/Zantos321/didya_fullstack#readme",
+   "description": ""
 }
