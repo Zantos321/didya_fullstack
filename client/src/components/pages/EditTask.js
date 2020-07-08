@@ -12,7 +12,7 @@ class EditTasks extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         task: this.props.editableTask.task.userText,
+         task: this.props.editableTask.task.text,
          checked: false,
       };
    }
@@ -57,7 +57,7 @@ class EditTasks extends React.Component {
                      <textarea
                         rows="4"
                         autoFocus={true}
-                        defaultValue={this.props.editableTask.task.userText}
+                        defaultValue={this.props.editableTask.task.text}
                         className="editTaskTextArea"
                         onChange={(e) => this.setTaskText(e)}
                      ></textarea>
@@ -65,7 +65,7 @@ class EditTasks extends React.Component {
                         <p className="text-muted mr-1 ml-3">
                            Last Time Completed:{" "}
                            {toDisplayDate(
-                              this.props.editableTask.task.lastDone,
+                              this.props.editableTask.task.lastDoneAt,
                               " MMM. d, y"
                            )}
                         </p>

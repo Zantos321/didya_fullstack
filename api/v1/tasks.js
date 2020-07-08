@@ -11,8 +11,18 @@ router.get("/", (req, res) => {
    console.log(req.query);
    const { userId } = req.query;
    db.query(selectAllTasks, [userId])
-      .then((dbRes) => {
-         res.json(dbRes);
+      .then((tasks) => {
+         const camelCaseTasks = tasks.map((task) => {
+            return {
+               id: task.id,
+               text: task.text,
+               userId: task.user_id,
+               isCompleted: task.is_completed,
+               lastDoneAt: task.last_done_at,
+               timesCompleted: task.times_completed,
+            };
+         });
+         res.json(camelCaseTasks);
       })
       .catch((err) => {
          console.log(err);

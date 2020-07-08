@@ -19,7 +19,7 @@ class TaskCard extends React.Component {
          <div className="row col">
             <ul className="list-group col-11 list-line">
                <li className="list-group-item all-list-text rounded-0">
-                  {this.props.task.userText}
+                  {this.props.task.text}
                </li>
             </ul>
             <Link
