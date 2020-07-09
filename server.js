@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+// Use to parse the body of objects
+app.use(express.json());
+
 app.use("/api/v1/users", require("./api/v1/users"));
 app.use("/api/v1/tasks", require("./api/v1/tasks"));
 
@@ -13,5 +16,5 @@ app.get("*", (req, res) => {
 const port = process.env.PORT || 1985;
 
 app.listen(port, () =>
-   console.log(`Example app listening at http://localhost:${port}`)
+   console.log(`Server running at http://localhost:${port}`)
 );

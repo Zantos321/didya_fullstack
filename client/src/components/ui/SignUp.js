@@ -1,6 +1,5 @@
 import React from "react";
 import classnames from "classnames";
-import hash from "object-hash";
 import { v4 as getUuid } from "uuid";
 import { EMAIL_REGEX } from "../../utils/helpers";
 import { withRouter } from "react-router-dom";
@@ -99,31 +98,25 @@ class Signup extends React.Component {
          this.state.hasEmailError === false &&
          this.state.hasPasswordError === false
       ) {
+         // Create user obj
          const user = {
             id: getUuid(),
             email: emailInput,
-            password: hash(passwordInput),
+            password: passwordInput,
             createdAt: Date.now(),
          };
          console.log("User object for POST", user);
+         // Post to API
          axios
-            .get(
-               "https://raw.githubusercontent.com/Zantos321/didya/master/src/mock-data/user.json"
-            )
+            .post("/api/v1/users", user)
             .then((res) => {
-               // handle success
-               const currentUser = res.data;
-               console.log(currentUser);
-               this.props.dispatch({
-                  type: actions.UPDATE_CURRENT_USER,
-                  payload: res.data,
-               });
+               console.log(res);
             })
-            .catch((error) => {
-               // handle error
-               console.log(error);
+            .catch((err) => {
+               console.log(err);
             });
-         this.props.history.push("/add-task");
+         // Update current user in global state with API response
+         // Go to next page this.props.history.push("/add-task");
       }
    }
 
