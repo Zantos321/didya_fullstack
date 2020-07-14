@@ -8,6 +8,36 @@ import AddTask from "./components/pages/AddTask";
 import EditTask from "./components/pages/EditTask";
 import NotFound from "./components/pages/NotFound";
 import Signup from "./components/pages/Signup";
+import jwtDecode from "jwt-decode";
+import store from "./store/store";
+import actions from "./store/actions";
+
+const authToken = localStorage.authToken;
+if (authToken) {
+   // if the authToken is not expired
+   const currentTimeInSec = Date.now() / 1000;
+   const user = jwtDecode(authToken);
+   if (currentTimeInSec > user.exp) {
+      console.log("expired token");
+      store.dispatch({
+         type: actions.UPDATE_CURRENT_USER,
+         payload: {},
+      });
+   } else {
+      console.log("valid token");
+      store.dispatch({
+         type: actions.UPDATE_CURRENT_USER,
+         payload: user,
+      });
+      // TODO: set authorization headers
+      const currentUrl = window.location.pathname;
+      if (currentUrl === "/") {
+         window.location.href = "/home";
+      }
+   }
+} else {
+   console.log("no token");
+}
 
 function App() {
    return (
