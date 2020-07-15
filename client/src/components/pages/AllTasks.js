@@ -5,8 +5,6 @@ import TaskCard from "../ui/TaskCard";
 import { AddTask } from "../../icons/Icons";
 import axios from "axios";
 
-const userId = "52b5c81c-f378-4a90-9614-1702a1b0e205";
-
 export default class AllTasks extends React.Component {
    constructor(props) {
       super(props);
@@ -17,7 +15,7 @@ export default class AllTasks extends React.Component {
 
    componentDidMount() {
       axios
-         .get(`/api/v1/tasks?userId=${userId}`)
+         .get(`/api/v1/tasks?`)
          .then((res) => {
             // handle success
             const allTasks = res.data;

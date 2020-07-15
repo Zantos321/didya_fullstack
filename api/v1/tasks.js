@@ -3,13 +3,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const selectAllTasks = require("../../queries/selectAllTasks");
+const validateJwt = require("../../utils/validateJwt");
 
 // @route       GET api/v1/tasks
 // @desc        Get all taks for a user
-// @access      Public
-router.get("/", (req, res) => {
+// @access      Private
+router.get("/", validateJwt, (req, res) => {
    console.log(req.query);
-   const { userId } = req.query;
+   const { userId } = req.user.id;
    db.query(selectAllTasks, [userId])
       .then((tasks) => {
          const camelCaseTasks = tasks.map((task) => {

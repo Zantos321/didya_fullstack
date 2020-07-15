@@ -7,7 +7,7 @@ module.exports = async function getSignUpPasswordError(password, email) {
       return "Please enter your password.";
    }
    if ((await checkIsValidUser(email, password)) === false) {
-      return "Th email and password combination you entered is invalid.";
+      return "The email and password combination you entered is invalid.";
    }
    return "";
 };
