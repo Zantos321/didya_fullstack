@@ -1,3 +1,7 @@
+html {
+   overflow-y: scroll;
+}
+
 .landing-background {
    background-color: $My-Color-Theme-1;
    background-size: cover;
@@ -168,4 +172,9 @@ h3 {
 
 .delete-verify {
    cursor: pointer;
+}
+
+.disabled {
+   pointer-events: fill !important;
+   cursor: not-allowed !important;
 }

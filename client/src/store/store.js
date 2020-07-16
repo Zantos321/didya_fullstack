@@ -6,6 +6,7 @@ const initialState = {
    currentUser: {},
    tasks: [],
    editableTask: {},
+   creatableTask: {},
 };
 
 const store = createStore(combineReducers, initialState, composeWithDevTools());

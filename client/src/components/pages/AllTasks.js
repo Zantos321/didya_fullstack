@@ -14,9 +14,14 @@ export default class AllTasks extends React.Component {
    }
 
    componentDidMount() {
+      this.setTasks();
+   }
+
+   setTasks() {
       axios
          .get(`/api/v1/tasks?`)
          .then((res) => {
+            console.log(res.data);
             // handle success
             const allTasks = res.data;
             console.log(res);
@@ -29,6 +34,7 @@ export default class AllTasks extends React.Component {
             console.log(error);
          });
    }
+
    render() {
       return (
          <BodyTemplate>

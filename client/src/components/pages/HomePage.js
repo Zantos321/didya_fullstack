@@ -16,9 +16,7 @@ class HomePage extends React.Component {
       super(props);
       if (props.tasks.length === 0) {
          axios
-            .get(
-               "https://raw.githubusercontent.com/Zantos321/didya/master/src/mock-data/tasks.json"
-            )
+            .get(`/api/v1/tasks?`)
             .then((res) => {
                // handle success
                console.log(res);

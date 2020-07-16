@@ -3,8 +3,12 @@ import BodyTemplate from "../ui/BodyTemplate";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
 import { MAX_CHAR_COUNT } from "../../utils/helpers";
+import { connect } from "react-redux";
+import actions from "../../store/actions";
+import { v4 as getUuid } from "uuid";
+import axios from "axios";
 
-export default class AddTask extends React.Component {
+class AddTask extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -23,6 +27,40 @@ export default class AddTask extends React.Component {
 
    setTaskText(e) {
       this.setState({ task: e.target.value });
+   }
+
+   async setCreatableTask() {
+      if (!this.checkIsInvalidCharLimit()) {
+         let newTask = {
+            id: getUuid(),
+            text: this.state.task,
+            userId: this.props.currentUser.id,
+            isCompleted: 0,
+            lastDoneAt: Date.now(),
+            timesCompleted: 0,
+         };
+         await this.props.dispatch({
+            type: actions.UPDATE_CREATABLE_TASK,
+            payload: {
+               id: getUuid(),
+               text: this.state.task,
+               userId: this.props.currentUser.id,
+               isCompleted: 0,
+               lastDoneAt: Date.now(),
+               timesCompleted: 0,
+            },
+         });
+         axios
+            .post("/api/v1/tasks", newTask)
+            .then((res) => {
+               console.log("Task Created");
+            })
+            .catch((err) => {
+               const { data } = err.response;
+               console.log(data);
+            });
+         this.props.history.push("/all-tasks");
+      }
    }
 
    render() {
@@ -62,17 +100,26 @@ export default class AddTask extends React.Component {
                      CANCEL
                   </Link>
 
-                  <Link
+                  <button
                      to="/all-tasks"
                      className={classnames("btn edit-save col-4 mr-4", {
                         disabled: this.checkIsInvalidCharLimit(),
                      })}
+                     onClick={() => {
+                        this.setCreatableTask();
+                     }}
                   >
                      SAVE
-                  </Link>
+                  </button>
                </div>
             </div>
          </BodyTemplate>
       );
    }
 }
+
+function mapStateToProps(state) {
+   return { currentUser: state.currentUser };
+}
+
+export default connect(mapStateToProps)(AddTask);
