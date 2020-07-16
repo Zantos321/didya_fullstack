@@ -63,7 +63,7 @@ class HomePage extends React.Component {
                <div className="card didyaCard col-8 mb-4">
                   <div className="card-body">
                      <p className="card-text didyaText">
-                        {currentTask && currentTask.userText}
+                        {currentTask && currentTask.text}
                      </p>
                   </div>
                </div>
