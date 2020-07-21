@@ -7,27 +7,28 @@ import { MAX_CHAR_COUNT } from "../../utils/helpers";
 import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
 //import actions from "../../store/actions";
+import axios from "axios";
 
 class EditTasks extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         task: this.props.editableTask.task.text,
+         text: this.props.editableTask.task.text,
          checked: false,
       };
    }
 
    checkIsInvalidCharLimit() {
       if (
-         this.state.task.length > MAX_CHAR_COUNT ||
-         this.state.task.length === 0
+         this.state.text.length > MAX_CHAR_COUNT ||
+         this.state.text.length === 0
       ) {
          return true;
       } else return false;
    }
 
    setTaskText(e) {
-      this.setState({ task: e.target.value });
+      this.setState({ text: e.target.value });
    }
 
    showDeleteButton() {
@@ -36,9 +37,41 @@ class EditTasks extends React.Component {
       });
    }
 
-   deleteTask() {
-      this.props.history.push("/all-tasks");
+   saveTask() {
+      if (!this.checkIsInvalidCharLimit()) {
+         const task = { ...this.props.editableTask.task };
+         task.text = this.state.text;
+         console.log(task);
+
+         // db put changes to card in our axios req
+         axios
+            .put(`/api/v1/tasks/${task.id}`, task)
+            .then((res) => {
+               console.log("Task Updated");
+               this.props.history.push("/all-tasks");
+            })
+            .catch((err) => {
+               const { data } = err.response;
+               console.log(data);
+            });
+      }
    }
+
+   deleteTask() {
+      const task = { ...this.props.editableTask.task };
+      axios
+         .delete(`/api/v1/tasks/${task.id}`)
+         .then((res) => {
+            console.log(res.data);
+            console.log("Task Deleted");
+            this.props.history.push("/all-tasks");
+         })
+         .catch((err) => {
+            console.log(err.response.data);
+         });
+   }
+
+   // TODO: make edit and delete buttons work
 
    render() {
       return (
@@ -76,7 +109,7 @@ class EditTasks extends React.Component {
                                  "text-danger": this.checkIsInvalidCharLimit(),
                               })}
                            >
-                              {this.state.task.length}/{MAX_CHAR_COUNT}
+                              {this.state.text.length}/{MAX_CHAR_COUNT}
                            </span>
                         </p>
                      </div>
@@ -89,14 +122,14 @@ class EditTasks extends React.Component {
                         >
                            CANCEL EDIT
                         </Link>
-                        <Link
-                           to={this.props.editableTask.prevRoute}
+                        <button
                            className={classnames("btn edit-save col-4 mr-4", {
                               disabled: this.checkIsInvalidCharLimit(),
                            })}
+                           onClick={() => this.saveTask()}
                         >
                            SAVE EDIT
-                        </Link>
+                        </button>
                      </div>
                   </div>
                   <div className="custom-control custom-checkbox">
@@ -120,8 +153,7 @@ class EditTasks extends React.Component {
                         </div>
                      </div>
                      {this.state.checked && (
-                        <Link
-                           to="/all-tasks"
+                        <button
                            className="btn btn-large btn-danger "
                            id="card-delete"
                            onClick={() => {
@@ -129,7 +161,7 @@ class EditTasks extends React.Component {
                            }}
                         >
                            DELETE THIS TASK
-                        </Link>
+                        </button>
                      )}
                   </div>
                </>

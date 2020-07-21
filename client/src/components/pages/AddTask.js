@@ -29,6 +29,8 @@ class AddTask extends React.Component {
       this.setState({ task: e.target.value });
    }
 
+   // TODO: on success, fire overlay
+   // TODO: on error, fire overlay
    async setCreatableTask() {
       if (!this.checkIsInvalidCharLimit()) {
          let newTask = {

@@ -35,6 +35,11 @@ class HomePage extends React.Component {
       }
    }
 
+   // TODO: when all tasks completed, fire congrats? overlay
+   // TODO:
+   // TODO: (MVP 2)
+   // TODO: optimize better for desktop
+
    goToNextTask() {
       // TODO make it randomly display a task
       const removedTask = this.props.tasks[0];

@@ -37,7 +37,7 @@ class TaskCard extends React.Component {
 }
 
 function mapStateToProps(state) {
-   return {};
+   return { tasks: state.tasks };
 }
 
 export default connect(mapStateToProps)(TaskCard);
