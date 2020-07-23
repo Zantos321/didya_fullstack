@@ -49,7 +49,7 @@ class HomePage extends React.Component {
          type: actions.STORE_QUEUED_TASKS,
          payload: filteredTasks,
       });
-      if (filteredTasks[0] === undefined) {
+      if (filteredTasks[0] === undefined || filteredTasks[0] === "") {
          this.props.dispatch({
             type: actions.RESET_TASK_QUEUE,
             payload: shuffle(this.originalTaskList),
