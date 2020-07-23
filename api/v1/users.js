@@ -40,7 +40,8 @@ router.post("/", async (req, res) => {
                   };
                   const accessToken = jwt.sign(
                      user,
-                     process.env.JWT_ACCESS_SECRET
+                     process.env.JWT_ACCESS_SECRET,
+                     { expiresIn: "15m" }
                   );
                   // TODO add refresh token
                   res.status(200).json(accessToken);
@@ -78,7 +79,9 @@ router.post("/auth", async (req, res) => {
                email: users[0].email,
                createdAt: users[0].created_at,
             };
-            const accessToken = jwt.sign(user, process.env.JWT_ACCESS_SECRET);
+            const accessToken = jwt.sign(user, process.env.JWT_ACCESS_SECRET, {
+               expiresIn: "15m",
+            });
             // TODO add refresh token
             res.status(200).json(accessToken);
          })
