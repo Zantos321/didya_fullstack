@@ -121,7 +121,7 @@ class AddTask extends React.Component {
 }
 
 function mapStateToProps(state) {
-   return { currentUser: state.currentUser };
+   return { currentUser: state.currentUser, tasks: state.tasks };
 }
 
 export default connect(mapStateToProps)(AddTask);

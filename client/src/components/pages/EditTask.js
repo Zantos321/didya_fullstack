@@ -6,8 +6,9 @@ import classnames from "classnames";
 import { MAX_CHAR_COUNT } from "../../utils/helpers";
 import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
-//import actions from "../../store/actions";
+import actions from "../../store/actions";
 import axios from "axios";
+import without from "lodash/without";
 
 class EditTasks extends React.Component {
    constructor(props) {
@@ -48,6 +49,11 @@ class EditTasks extends React.Component {
             .put(`/api/v1/tasks/${task.id}`, task)
             .then((res) => {
                console.log("Task Updated");
+               const editedTasks = [...this.props.tasks];
+               this.props.dispatch({
+                  type: actions.STORE_QUEUED_TASKS,
+                  payload: editedTasks,
+               });
                this.props.history.push("/all-tasks");
             })
             .catch((err) => {
@@ -64,6 +70,13 @@ class EditTasks extends React.Component {
          .then((res) => {
             console.log(res.data);
             console.log("Task Deleted");
+            const deletedTask = this.props.editableTask.task;
+            const tasks = this.props.tasks;
+            const filteredTasks = without(tasks, deletedTask);
+            this.props.dispatch({
+               type: actions.STORE_QUEUED_TASKS,
+               payload: filteredTasks,
+            });
             this.props.history.push("/all-tasks");
          })
          .catch((err) => {
@@ -174,6 +187,7 @@ class EditTasks extends React.Component {
 function mapStateToProps(state) {
    return {
       editableTask: state.editableTask,
+      tasks: state.tasks,
    };
 }
 
