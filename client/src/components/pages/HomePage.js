@@ -67,9 +67,9 @@ class HomePage extends React.Component {
             <div className="row col-12 justify-content-center mb-4">
                <div className="card didyaCard col-8 mb-4">
                   <div className="card-body">
-                     <p className="card-text didyaText">
+                     <h4 className="card-text didyaText">
                         {currentTask && currentTask.text}
-                     </p>
+                     </h4>
                   </div>
                </div>
             </div>
