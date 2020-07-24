@@ -62,7 +62,11 @@ class HomePage extends React.Component {
       return (
          <BodyTemplate>
             <div className="row col">
-               <img src={diyaDots} alt="Didya..." className="ml-1 mt-4" />
+               <img
+                  src={diyaDots}
+                  alt="Didya..."
+                  className=" image-fluid ml-1 mt-4 text-center"
+               />
             </div>
             <div className="row col-12 justify-content-center mb-4">
                <div className="card didyaCard col-8 mb-4">
