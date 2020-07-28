@@ -61,11 +61,12 @@ class HomePage extends React.Component {
       const currentTask = this.props.tasks[0];
       return (
          <BodyTemplate>
-            <div className="row col">
+            <div className="row col-12">
                <img
                   src={diyaDots}
                   alt="Didya..."
-                  className=" image-fluid ml-1 mt-4 text-center"
+                  className="image-fluid ml-1 mt-4 text-center"
+                  id="didyaDots"
                />
             </div>
             <div className="row col-12 justify-content-center mb-4">
