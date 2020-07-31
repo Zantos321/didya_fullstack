@@ -5,7 +5,7 @@ Didya is an app that is designed to help someone get the small stuff done with a
 For a better rundown of the why and how I made this app, I have included the short presentation scripe I did while presenting this app at a local developer demo day.
 
 
-##Presentation Script
+
 Hi, I'm Joseph Naves.  I come from the gaming and building maintenance industry here in Las Vegas.  With this industry, you maintain things you don't create, and it can be terribly monotonous and unfulfilling.  I decided to become a web developer to make things, and if I can improve at least one person's life with the thing I create then it is worth all of the effort.
 
 For the past 4 months, I've completely dedicated myself to learning web development at PunchCode and on my own.  The thing I found most interesting in this time was using express to set up a monolithic app.  It's amazing when you get to see and use something that lets two things communicate with each other that on the outset dont look like they could.
